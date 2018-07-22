@@ -1,0 +1,5 @@
+Negative and positive temperature measuring with ATMEGA32, LM35 and LCD.
+[Full Code and Circuit Design].
+its a awesome project. please share, learn and subscribe :)
+youtube: http://lnk.pics/v-2280370
+blog: http://tajimiitju.blogspot.com/2017/11/negative-and-positive-temperature.html
