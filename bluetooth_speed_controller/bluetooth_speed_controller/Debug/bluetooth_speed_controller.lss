@@ -1,0 +1,482 @@
+
+bluetooth_speed_controller.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000001b8  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  0000020c  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  0000020c  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000023c  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 000000b8  00000000  00000000  00000278  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000a70  00000000  00000000  00000330  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000006d4  00000000  00000000  00000da0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000578  00000000  00000000  00001474  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000144  00000000  00000000  000019ec  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000004d5  00000000  00000000  00001b30  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    000002ee  00000000  00000000  00002005  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 000000c8  00000000  00000000  000022f3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   8:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  10:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  14:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  18:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  1c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  20:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  24:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  28:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  2c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  30:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  34:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  38:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  3c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  40:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  44:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  48:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  4c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  50:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+  60:	0e 94 82 00 	call	0x104	; 0x104 <main>
+  64:	0c 94 da 00 	jmp	0x1b4	; 0x1b4 <_exit>
+
+00000068 <__bad_interrupt>:
+  68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000006c <set_timercounter0_mode>:
+	TIMSK&=~(1<<interrupt_type);
+}
+
+void set_timercounter0_compare_value(unsigned char compare_value)
+{
+	OCR0=compare_value;
+  6c:	81 11       	cpse	r24, r1
+  6e:	03 c0       	rjmp	.+6      	; 0x76 <set_timercounter0_mode+0xa>
+  70:	83 b7       	in	r24, 0x33	; 51
+  72:	83 bf       	out	0x33, r24	; 51
+  74:	08 95       	ret
+  76:	81 30       	cpi	r24, 0x01	; 1
+  78:	21 f4       	brne	.+8      	; 0x82 <set_timercounter0_mode+0x16>
+  7a:	83 b7       	in	r24, 0x33	; 51
+  7c:	80 64       	ori	r24, 0x40	; 64
+  7e:	83 bf       	out	0x33, r24	; 51
+  80:	08 95       	ret
+  82:	82 30       	cpi	r24, 0x02	; 2
+  84:	21 f4       	brne	.+8      	; 0x8e <set_timercounter0_mode+0x22>
+  86:	83 b7       	in	r24, 0x33	; 51
+  88:	88 60       	ori	r24, 0x08	; 8
+  8a:	83 bf       	out	0x33, r24	; 51
+  8c:	08 95       	ret
+  8e:	83 30       	cpi	r24, 0x03	; 3
+  90:	19 f4       	brne	.+6      	; 0x98 <set_timercounter0_mode+0x2c>
+  92:	83 b7       	in	r24, 0x33	; 51
+  94:	88 64       	ori	r24, 0x48	; 72
+  96:	83 bf       	out	0x33, r24	; 51
+  98:	08 95       	ret
+
+0000009a <set_timercounter0_prescaler>:
+  9a:	93 b7       	in	r25, 0x33	; 51
+  9c:	98 7f       	andi	r25, 0xF8	; 248
+  9e:	93 bf       	out	0x33, r25	; 51
+  a0:	93 b7       	in	r25, 0x33	; 51
+  a2:	89 2b       	or	r24, r25
+  a4:	83 bf       	out	0x33, r24	; 51
+  a6:	08 95       	ret
+
+000000a8 <set_timercounter0_output_mode>:
+  a8:	23 b7       	in	r18, 0x33	; 51
+  aa:	30 e1       	ldi	r19, 0x10	; 16
+  ac:	83 9f       	mul	r24, r19
+  ae:	c0 01       	movw	r24, r0
+  b0:	11 24       	eor	r1, r1
+  b2:	82 2b       	or	r24, r18
+  b4:	83 bf       	out	0x33, r24	; 51
+  b6:	08 95       	ret
+
+000000b8 <set_timercounter2_mode>:
+}
+
+/*Timer Counter 2 Function Definitions*/
+void set_timercounter2_mode(unsigned char mode)
+{
+	if(mode==0)
+  b8:	81 11       	cpse	r24, r1
+  ba:	03 c0       	rjmp	.+6      	; 0xc2 <set_timercounter2_mode+0xa>
+	{
+		TCCR2|=0;
+  bc:	85 b5       	in	r24, 0x25	; 37
+  be:	85 bd       	out	0x25, r24	; 37
+  c0:	08 95       	ret
+	}
+	else if(mode==1)
+  c2:	81 30       	cpi	r24, 0x01	; 1
+  c4:	21 f4       	brne	.+8      	; 0xce <set_timercounter2_mode+0x16>
+	{
+		TCCR2|=_BV(WGM20);
+  c6:	85 b5       	in	r24, 0x25	; 37
+  c8:	80 64       	ori	r24, 0x40	; 64
+  ca:	85 bd       	out	0x25, r24	; 37
+  cc:	08 95       	ret
+	}
+	else if(mode==2)
+  ce:	82 30       	cpi	r24, 0x02	; 2
+  d0:	21 f4       	brne	.+8      	; 0xda <set_timercounter2_mode+0x22>
+	{
+		TCCR2|=_BV(WGM21);
+  d2:	85 b5       	in	r24, 0x25	; 37
+  d4:	88 60       	ori	r24, 0x08	; 8
+  d6:	85 bd       	out	0x25, r24	; 37
+  d8:	08 95       	ret
+	}
+	else if(mode==3)
+  da:	83 30       	cpi	r24, 0x03	; 3
+  dc:	19 f4       	brne	.+6      	; 0xe4 <set_timercounter2_mode+0x2c>
+	{
+		TCCR2|=_BV(WGM20)|_BV(WGM21);
+  de:	85 b5       	in	r24, 0x25	; 37
+  e0:	88 64       	ori	r24, 0x48	; 72
+  e2:	85 bd       	out	0x25, r24	; 37
+  e4:	08 95       	ret
+
+000000e6 <set_timercounter2_prescaler>:
+
+}
+
+void set_timercounter2_prescaler(unsigned char prescaler_value)
+{
+	TCCR2&=~(0x07);
+  e6:	95 b5       	in	r25, 0x25	; 37
+  e8:	98 7f       	andi	r25, 0xF8	; 248
+  ea:	95 bd       	out	0x25, r25	; 37
+	TCCR2|=prescaler_value;
+  ec:	95 b5       	in	r25, 0x25	; 37
+  ee:	89 2b       	or	r24, r25
+  f0:	85 bd       	out	0x25, r24	; 37
+  f2:	08 95       	ret
+
+000000f4 <set_timercounter2_output_mode>:
+}
+
+void set_timercounter2_output_mode(unsigned char output_mode)
+{
+	TCCR2|=output_mode<<4;
+  f4:	25 b5       	in	r18, 0x25	; 37
+  f6:	30 e1       	ldi	r19, 0x10	; 16
+  f8:	83 9f       	mul	r24, r19
+  fa:	c0 01       	movw	r24, r0
+  fc:	11 24       	eor	r1, r1
+  fe:	82 2b       	or	r24, r18
+ 100:	85 bd       	out	0x25, r24	; 37
+ 102:	08 95       	ret
+
+00000104 <main>:
+
+
+int main(void)
+{
+	
+	USART_Init();//Initializing UART............
+ 104:	0e 94 ce 00 	call	0x19c	; 0x19c <USART_Init>
+	
+	DDRB=0x08; //PB3 pin of PORTB is declared output (PWM1 pin of DC Motor Driver is connected)
+ 108:	88 e0       	ldi	r24, 0x08	; 8
+ 10a:	87 bb       	out	0x17, r24	; 23
+
+	DDRD=0x80; //PD7 pin of PORTD is declared output (PWM2 pin of DC Motor Driver is connected) 
+ 10c:	80 e8       	ldi	r24, 0x80	; 128
+ 10e:	81 bb       	out	0x11, r24	; 17
+	
+	DDRC=0x0f; //PC0,PC1,PC2 and PC3 pins of PortC are declared output ( i/p1,i/p2,i/p3 and i/p4 pins of DC Motor Driver are connected)
+ 110:	8f e0       	ldi	r24, 0x0F	; 15
+ 112:	84 bb       	out	0x14, r24	; 20
+	//DDRC = 0xFF; // all c as output
+	set_timercounter0_mode(3); //Timer counter 0 is set to fast pwm mode*/
+ 114:	83 e0       	ldi	r24, 0x03	; 3
+ 116:	0e 94 36 00 	call	0x6c	; 0x6c <set_timercounter0_mode>
+
+	set_timercounter0_prescaler(4); //Timer counter 0 frequency is set to 3.90625KHz
+ 11a:	84 e0       	ldi	r24, 0x04	; 4
+ 11c:	0e 94 4d 00 	call	0x9a	; 0x9a <set_timercounter0_prescaler>
+
+	set_timercounter0_output_mode(2); //Timer counter 0 output mode is set  to non-inverting mode
+ 120:	82 e0       	ldi	r24, 0x02	; 2
+ 122:	0e 94 54 00 	call	0xa8	; 0xa8 <set_timercounter0_output_mode>
+	
+	set_timercounter2_mode(3); //Timer counter 2 is set to fast pwm mode
+ 126:	83 e0       	ldi	r24, 0x03	; 3
+ 128:	0e 94 5c 00 	call	0xb8	; 0xb8 <set_timercounter2_mode>
+	
+	set_timercounter2_prescaler(4); //Timer counter 2 frequency is set to 3.90625KHz 
+ 12c:	84 e0       	ldi	r24, 0x04	; 4
+ 12e:	0e 94 73 00 	call	0xe6	; 0xe6 <set_timercounter2_prescaler>
+	
+	set_timercounter2_output_mode(2); //Timer counter 2 output mode is set to non-inverting mode*
+ 132:	82 e0       	ldi	r24, 0x02	; 2
+ 134:	0e 94 7a 00 	call	0xf4	; 0xf4 <set_timercounter2_output_mode>
+			set_timercounter2_compare_value(255);
+		}
+		// backward
+		else if(BT_Data == 'e')
+		{
+			PORTC=0x05; // 0101
+ 138:	05 e0       	ldi	r16, 0x05	; 5
+	TIMSK&=~(1<<interrupt_type);
+}
+
+void set_timercounter0_compare_value(unsigned char compare_value)
+{
+	OCR0=compare_value;
+ 13a:	cf ef       	ldi	r28, 0xFF	; 255
+			//d2 pressed Robot moves in forward direction for with medium speed
+		}
+		// slow forward
+		else if(BT_Data == 'b')
+		{
+			PORTC=0x0a; //1010
+ 13c:	1a e0       	ldi	r17, 0x0A	; 10
+	TIMSK&=~(1<<interrupt_type);
+}
+
+void set_timercounter0_compare_value(unsigned char compare_value)
+{
+	OCR0=compare_value;
+ 13e:	d4 eb       	ldi	r29, 0xB4	; 180
+			
+			set_timercounter2_compare_value(120); //OCR2 register value is set to 100
+			//D3 pressed Robot moves in forward direction for 4s with low speed
+		}
+		*/
+		unsigned char BT_Data = receiveByte();
+ 140:	0e 94 d6 00 	call	0x1ac	; 0x1ac <receiveByte>
+		
+		// fast forward
+		if(BT_Data == 'a')
+ 144:	81 36       	cpi	r24, 0x61	; 97
+ 146:	39 f4       	brne	.+14     	; 0x156 <main+0x52>
+			// left back
+			//PORTC |= (1<<0);
+			//PORTC &= ~(1<<1);
+			
+			// left forward
+			PORTC |= (1<<1);
+ 148:	a9 9a       	sbi	0x15, 1	; 21
+			PORTC &= ~(1<<0);
+ 14a:	a8 98       	cbi	0x15, 0	; 21
+			
+			// right forward
+			PORTC |= (1<<3);
+ 14c:	ab 9a       	sbi	0x15, 3	; 21
+			PORTC &= ~(1<<2);
+ 14e:	aa 98       	cbi	0x15, 2	; 21
+	TIMSK&=~(1<<interrupt_type);
+}
+
+void set_timercounter0_compare_value(unsigned char compare_value)
+{
+	OCR0=compare_value;
+ 150:	cc bf       	out	0x3c, r28	; 60
+	TIMSK&=~(1<<(interrupt_type+6));
+}
+
+void set_timercounter2_compare_value(unsigned char compare_value)
+{
+	OCR2=compare_value;
+ 152:	c3 bd       	out	0x23, r28	; 35
+ 154:	f5 cf       	rjmp	.-22     	; 0x140 <main+0x3c>
+			
+			set_timercounter2_compare_value(255);//OCR2 register value is set to 180
+			//d2 pressed Robot moves in forward direction for with medium speed
+		}
+		// slow forward
+		else if(BT_Data == 'b')
+ 156:	82 36       	cpi	r24, 0x62	; 98
+ 158:	29 f4       	brne	.+10     	; 0x164 <main+0x60>
+		{
+			PORTC=0x0a; //1010
+ 15a:	15 bb       	out	0x15, r17	; 21
+			PORTC |= (1<<5);
+ 15c:	ad 9a       	sbi	0x15, 5	; 21
+	TIMSK&=~(1<<interrupt_type);
+}
+
+void set_timercounter0_compare_value(unsigned char compare_value)
+{
+	OCR0=compare_value;
+ 15e:	dc bf       	out	0x3c, r29	; 60
+	TIMSK&=~(1<<(interrupt_type+6));
+}
+
+void set_timercounter2_compare_value(unsigned char compare_value)
+{
+	OCR2=compare_value;
+ 160:	d3 bd       	out	0x23, r29	; 35
+ 162:	ee cf       	rjmp	.-36     	; 0x140 <main+0x3c>
+			
+			set_timercounter2_compare_value(180); //OCR2 register value is set to 100
+			//D3 pressed Robot moves in forward direction for 4s with low speed
+		}
+		// right
+		else if(BT_Data == 'c')
+ 164:	83 36       	cpi	r24, 0x63	; 99
+ 166:	29 f4       	brne	.+10     	; 0x172 <main+0x6e>
+		{
+			//PORTC=0x09; // 1001
+			// right forward
+			PORTC |= (1<<3);
+ 168:	ab 9a       	sbi	0x15, 3	; 21
+			PORTC &= ~(1<<2);
+ 16a:	aa 98       	cbi	0x15, 2	; 21
+	TIMSK&=~(1<<interrupt_type);
+}
+
+void set_timercounter0_compare_value(unsigned char compare_value)
+{
+	OCR0=compare_value;
+ 16c:	cc bf       	out	0x3c, r28	; 60
+	TIMSK&=~(1<<(interrupt_type+6));
+}
+
+void set_timercounter2_compare_value(unsigned char compare_value)
+{
+	OCR2=compare_value;
+ 16e:	c3 bd       	out	0x23, r28	; 35
+ 170:	e7 cf       	rjmp	.-50     	; 0x140 <main+0x3c>
+			PORTC &= ~(1<<2);
+			set_timercounter0_compare_value(255);
+			set_timercounter2_compare_value(255);
+		}
+		// left
+		else if(BT_Data == 'd')
+ 172:	84 36       	cpi	r24, 0x64	; 100
+ 174:	29 f4       	brne	.+10     	; 0x180 <main+0x7c>
+		{
+			//PORTC=0x04; // 0110
+			//PORTC |= (1<<5);
+			// left forward
+			PORTC |= (1<<1);
+ 176:	a9 9a       	sbi	0x15, 1	; 21
+			PORTC &= ~(1<<0);
+ 178:	a8 98       	cbi	0x15, 0	; 21
+	TIMSK&=~(1<<interrupt_type);
+}
+
+void set_timercounter0_compare_value(unsigned char compare_value)
+{
+	OCR0=compare_value;
+ 17a:	cc bf       	out	0x3c, r28	; 60
+	TIMSK&=~(1<<(interrupt_type+6));
+}
+
+void set_timercounter2_compare_value(unsigned char compare_value)
+{
+	OCR2=compare_value;
+ 17c:	c3 bd       	out	0x23, r28	; 35
+ 17e:	e0 cf       	rjmp	.-64     	; 0x140 <main+0x3c>
+			PORTC &= ~(1<<0);
+			set_timercounter0_compare_value(255);
+			set_timercounter2_compare_value(255);
+		}
+		// backward
+		else if(BT_Data == 'e')
+ 180:	85 36       	cpi	r24, 0x65	; 101
+ 182:	21 f4       	brne	.+8      	; 0x18c <main+0x88>
+		{
+			PORTC=0x05; // 0101
+ 184:	05 bb       	out	0x15, r16	; 21
+	TIMSK&=~(1<<interrupt_type);
+}
+
+void set_timercounter0_compare_value(unsigned char compare_value)
+{
+	OCR0=compare_value;
+ 186:	cc bf       	out	0x3c, r28	; 60
+	TIMSK&=~(1<<(interrupt_type+6));
+}
+
+void set_timercounter2_compare_value(unsigned char compare_value)
+{
+	OCR2=compare_value;
+ 188:	c3 bd       	out	0x23, r28	; 35
+ 18a:	da cf       	rjmp	.-76     	; 0x140 <main+0x3c>
+			PORTC=0x05; // 0101
+			set_timercounter0_compare_value(255); 
+			set_timercounter2_compare_value(255);
+		}
+		//off - stop
+		else if(BT_Data == 'f')
+ 18c:	86 36       	cpi	r24, 0x66	; 102
+ 18e:	c1 f6       	brne	.-80     	; 0x140 <main+0x3c>
+		{
+			PORTC &= ~(1<<5);
+ 190:	ad 98       	cbi	0x15, 5	; 21
+			PORTC &= ~(1<<0);
+ 192:	a8 98       	cbi	0x15, 0	; 21
+			PORTC &= ~(1<<1);
+ 194:	a9 98       	cbi	0x15, 1	; 21
+			PORTC &= ~(1<<2);
+ 196:	aa 98       	cbi	0x15, 2	; 21
+			PORTC &= ~(1<<3);
+ 198:	ab 98       	cbi	0x15, 3	; 21
+ 19a:	d2 cf       	rjmp	.-92     	; 0x140 <main+0x3c>
+
+0000019c <USART_Init>:
+
+void transmitByte(unsigned char data)
+{
+	while((UCSRA & (1 << UDRE)) == 0) {}; //Do nothing until UDR is ready for more data to be written to it
+	
+	UDR = data;
+ 19c:	88 e1       	ldi	r24, 0x18	; 24
+ 19e:	8a b9       	out	0x0a, r24	; 10
+ 1a0:	86 e8       	ldi	r24, 0x86	; 134
+ 1a2:	80 bd       	out	0x20, r24	; 32
+ 1a4:	10 bc       	out	0x20, r1	; 32
+ 1a6:	83 e3       	ldi	r24, 0x33	; 51
+ 1a8:	89 b9       	out	0x09, r24	; 9
+ 1aa:	08 95       	ret
+
+000001ac <receiveByte>:
+
+unsigned char receiveByte(void)
+{
+	char data;
+	
+	while((UCSRA & (1 << RXC)) == 0) {}; //Do nothing until data have been received and is ready to be read from UDR
+ 1ac:	5f 9b       	sbis	0x0b, 7	; 11
+ 1ae:	fe cf       	rjmp	.-4      	; 0x1ac <receiveByte>
+	
+	data = UDR;
+ 1b0:	8c b1       	in	r24, 0x0c	; 12
+	
+	return(data);
+}
+ 1b2:	08 95       	ret
+
+000001b4 <_exit>:
+ 1b4:	f8 94       	cli
+
+000001b6 <__stop_program>:
+ 1b6:	ff cf       	rjmp	.-2      	; 0x1b6 <__stop_program>

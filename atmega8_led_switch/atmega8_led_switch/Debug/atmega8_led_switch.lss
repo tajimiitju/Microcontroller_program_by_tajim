@@ -1,0 +1,169 @@
+
+atmega8_led_switch.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000096  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00000096  0000010a  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  0000010a  2**0
+                  CONTENTS, READONLY
+  3 .debug_aranges 00000038  00000000  00000000  0000013a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_info   000001c8  00000000  00000000  00000172  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_abbrev 000000f8  00000000  00000000  0000033a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_line   00000159  00000000  00000000  00000432  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_frame  00000054  00000000  00000000  0000058c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_str    0000019f  00000000  00000000  000005e0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_loc    000000b8  00000000  00000000  0000077f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_ranges 00000028  00000000  00000000  00000837  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	19 c0       	rjmp	.+50     	; 0x36 <__bad_interrupt>
+   4:	18 c0       	rjmp	.+48     	; 0x36 <__bad_interrupt>
+   6:	17 c0       	rjmp	.+46     	; 0x36 <__bad_interrupt>
+   8:	16 c0       	rjmp	.+44     	; 0x36 <__bad_interrupt>
+   a:	15 c0       	rjmp	.+42     	; 0x36 <__bad_interrupt>
+   c:	14 c0       	rjmp	.+40     	; 0x36 <__bad_interrupt>
+   e:	13 c0       	rjmp	.+38     	; 0x36 <__bad_interrupt>
+  10:	12 c0       	rjmp	.+36     	; 0x36 <__bad_interrupt>
+  12:	11 c0       	rjmp	.+34     	; 0x36 <__bad_interrupt>
+  14:	10 c0       	rjmp	.+32     	; 0x36 <__bad_interrupt>
+  16:	0f c0       	rjmp	.+30     	; 0x36 <__bad_interrupt>
+  18:	0e c0       	rjmp	.+28     	; 0x36 <__bad_interrupt>
+  1a:	0d c0       	rjmp	.+26     	; 0x36 <__bad_interrupt>
+  1c:	0c c0       	rjmp	.+24     	; 0x36 <__bad_interrupt>
+  1e:	0b c0       	rjmp	.+22     	; 0x36 <__bad_interrupt>
+  20:	0a c0       	rjmp	.+20     	; 0x36 <__bad_interrupt>
+  22:	09 c0       	rjmp	.+18     	; 0x36 <__bad_interrupt>
+  24:	08 c0       	rjmp	.+16     	; 0x36 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+  32:	0b d0       	rcall	.+22     	; 0x4a <main>
+  34:	2e c0       	rjmp	.+92     	; 0x92 <_exit>
+
+00000036 <__bad_interrupt>:
+  36:	e4 cf       	rjmp	.-56     	; 0x0 <__vectors>
+
+00000038 <ioinit>:
+	}
+}
+
+void ioinit (void)
+{
+	DDRC = 0b11101111; //Pin 27 of MCU as input
+  38:	8f ee       	ldi	r24, 0xEF	; 239
+  3a:	84 bb       	out	0x14, r24	; 20
+	PORTC = 0b00010000; //Enable internal pullup of pin 27
+  3c:	80 e1       	ldi	r24, 0x10	; 16
+  3e:	85 bb       	out	0x15, r24	; 21
+  40:	08 95       	ret
+
+00000042 <led_on>:
+}
+
+void led_on(void)
+{
+	PORTC |= _BV(PC5); //Pin 28 of MCU as output
+  42:	ad 9a       	sbi	0x15, 5	; 21
+  44:	08 95       	ret
+
+00000046 <led_off>:
+}
+
+void led_off(void)
+{
+	PORTC &= ~_BV(PC5);
+  46:	ad 98       	cbi	0x15, 5	; 21
+  48:	08 95       	ret
+
+0000004a <main>:
+void led_on(void);
+void led_off(void);
+//======================
+int main (void)
+{
+	ioinit(); //Setup IO pins and defaults
+  4a:	f6 df       	rcall	.-20     	; 0x38 <ioinit>
+	while (1)
+	{
+		if (bit_is_clear(PINC, 4))
+  4c:	00 e0       	ldi	r16, 0x00	; 0
+  4e:	10 e0       	ldi	r17, 0x00	; 0
+  50:	9c 99       	sbic	0x13, 4	; 19
+  52:	fe cf       	rjmp	.-4      	; 0x50 <main+0x6>
+  54:	c0 2f       	mov	r28, r16
+  56:	d1 2f       	mov	r29, r17
+  58:	17 c0       	rjmp	.+46     	; 0x88 <main+0x3e>
+		{
+			for (int i=0;i<6;i++)
+			{
+				if (i>0)
+  5a:	1c 16       	cp	r1, r28
+  5c:	1d 06       	cpc	r1, r29
+  5e:	a4 f4       	brge	.+40     	; 0x88 <main+0x3e>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  60:	9f e9       	ldi	r25, 0x9F	; 159
+  62:	26 e8       	ldi	r18, 0x86	; 134
+  64:	81 e0       	ldi	r24, 0x01	; 1
+  66:	91 50       	subi	r25, 0x01	; 1
+  68:	20 40       	sbci	r18, 0x00	; 0
+  6a:	80 40       	sbci	r24, 0x00	; 0
+  6c:	e1 f7       	brne	.-8      	; 0x66 <main+0x1c>
+  6e:	00 c0       	rjmp	.+0      	; 0x70 <main+0x26>
+  70:	00 00       	nop
+				{
+					_delay_ms(500);
+					led_on();
+  72:	e7 df       	rcall	.-50     	; 0x42 <led_on>
+  74:	9f e9       	ldi	r25, 0x9F	; 159
+  76:	26 e8       	ldi	r18, 0x86	; 134
+  78:	81 e0       	ldi	r24, 0x01	; 1
+  7a:	91 50       	subi	r25, 0x01	; 1
+  7c:	20 40       	sbci	r18, 0x00	; 0
+  7e:	80 40       	sbci	r24, 0x00	; 0
+  80:	e1 f7       	brne	.-8      	; 0x7a <main+0x30>
+  82:	00 c0       	rjmp	.+0      	; 0x84 <main+0x3a>
+  84:	00 00       	nop
+					_delay_ms(500);
+					led_off();
+  86:	df df       	rcall	.-66     	; 0x46 <led_off>
+	ioinit(); //Setup IO pins and defaults
+	while (1)
+	{
+		if (bit_is_clear(PINC, 4))
+		{
+			for (int i=0;i<6;i++)
+  88:	21 96       	adiw	r28, 0x01	; 1
+  8a:	c6 30       	cpi	r28, 0x06	; 6
+  8c:	d1 05       	cpc	r29, r1
+  8e:	29 f7       	brne	.-54     	; 0x5a <main+0x10>
+  90:	df cf       	rjmp	.-66     	; 0x50 <main+0x6>
+
+00000092 <_exit>:
+  92:	f8 94       	cli
+
+00000094 <__stop_program>:
+  94:	ff cf       	rjmp	.-2      	; 0x94 <__stop_program>
