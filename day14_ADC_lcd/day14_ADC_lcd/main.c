@@ -48,7 +48,7 @@ int main(void)
 			LCDGotoXY(11,2);
 			LCDString(line);
 			
-			_delay_ms(50);
+			_delay_ms(500);
 		}
 
 		

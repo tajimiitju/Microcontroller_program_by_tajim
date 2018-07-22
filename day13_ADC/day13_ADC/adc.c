@@ -36,8 +36,7 @@ uint16_t adc_read(void)
 	
 	//6. start conversion
 	ADCSRA |= (1<<ADSC);
-	while (bit_is_set(ADCSRA,ADSC));
-	
+	while (bit_is_set(ADCSRA,ADSC)); //Wait for conversion to complete
 	
 	//read adc data
 	return ADCW;
