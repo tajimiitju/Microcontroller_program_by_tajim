@@ -1,0 +1,7 @@
+AVR/GNU Linker_______
+Libraries_______________
+libprintf_flt.a
+libm.a
+Miscellaneous__________
+-Wl,-u,vfprintf -lprintf_flt -lm 
+

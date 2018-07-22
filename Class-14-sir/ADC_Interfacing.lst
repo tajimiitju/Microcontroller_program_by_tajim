@@ -1,0 +1,157 @@
+   1               		.file	"ADC_Interfacing.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.data
+  17               	.LC0:
+  18 0000 4144 4320 		.string	"ADC Value Is:"
+  18      5661 6C75 
+  18      6520 4973 
+  18      3A00 
+  19               	.LC1:
+  20 000e 2564 00   		.string	"%d"
+  21               		.text
+  22               	.global	main
+  24               	main:
+  25               	.LFB7:
+  26               	.LM1:
+  27 0000 EF92      		push r14
+  28 0002 FF92      		push r15
+  29 0004 0F93      		push r16
+  30 0006 1F93      		push r17
+  31 0008 CF93      		push r28
+  32 000a DF93      		push r29
+  33               	/* prologue: function */
+  34               	/* frame size = 0 */
+  35               	.LM2:
+  36 000c 0E94 0000 		call LCDInit
+  37               	.LM3:
+  38 0010 0E94 0000 		call adc_init
+  39               	.LM4:
+  40 0014 80E0      		ldi r24,lo8(line)
+  41 0016 90E0      		ldi r25,hi8(line)
+  42 0018 60E0      		ldi r22,lo8(.LC0)
+  43 001a 70E0      		ldi r23,hi8(.LC0)
+  44 001c 0E94 0000 		call strcpy
+  45               	.LM5:
+  46 0020 81E0      		ldi r24,lo8(1)
+  47 0022 61E0      		ldi r22,lo8(1)
+  48 0024 0E94 0000 		call LCDGotoXY
+  49               	.LM6:
+  50 0028 80E0      		ldi r24,lo8(line)
+  51 002a 90E0      		ldi r25,hi8(line)
+  52 002c 0E94 0000 		call LCDString
+  53               	.LM7:
+  54 0030 C0E0      		ldi r28,lo8(line)
+  55 0032 D0E0      		ldi r29,hi8(line)
+  56 0034 80E0      		ldi r24,lo8(.LC1)
+  57 0036 E82E      		mov r14,r24
+  58 0038 80E0      		ldi r24,hi8(.LC1)
+  59 003a F82E      		mov r15,r24
+  60               	.LBB12:
+  61               	.LBB13:
+  62               	.LBB14:
+  63               	.LBB15:
+  64               	.LM8:
+  65 003c 08EC      		ldi r16,lo8(200)
+  66 003e 10E0      		ldi r17,hi8(200)
+  67               	.L3:
+  68               	.LBE15:
+  69               	.LBE14:
+  70               	.LBE13:
+  71               	.LBE12:
+  72               	.LM9:
+  73 0040 0E94 0000 		call adc_read
+  74 0044 8093 0000 		sts adc_value,r24
+  75 0048 9093 0000 		sts adc_value+1,r25
+  76               	.LM10:
+  77 004c 00D0      		rcall .
+  78 004e 00D0      		rcall .
+  79 0050 00D0      		rcall .
+  80 0052 EDB7      		in r30,__SP_L__
+  81 0054 FEB7      		in r31,__SP_H__
+  82 0056 3196      		adiw r30,1
+  83 0058 ADB7      		in r26,__SP_L__
+  84 005a BEB7      		in r27,__SP_H__
+  85 005c 1296      		adiw r26,1+1
+  86 005e DC93      		st X,r29
+  87 0060 CE93      		st -X,r28
+  88 0062 1197      		sbiw r26,1
+  89 0064 F382      		std Z+3,r15
+  90 0066 E282      		std Z+2,r14
+  91 0068 8483      		std Z+4,r24
+  92 006a 9583      		std Z+5,r25
+  93 006c 0E94 0000 		call sprintf
+  94               	.LM11:
+  95 0070 8DB7      		in r24,__SP_L__
+  96 0072 9EB7      		in r25,__SP_H__
+  97 0074 0696      		adiw r24,6
+  98 0076 0FB6      		in __tmp_reg__,__SREG__
+  99 0078 F894      		cli
+ 100 007a 9EBF      		out __SP_H__,r25
+ 101 007c 0FBE      		out __SREG__,__tmp_reg__
+ 102 007e 8DBF      		out __SP_L__,r24
+ 103 0080 87E0      		ldi r24,lo8(7)
+ 104 0082 62E0      		ldi r22,lo8(2)
+ 105 0084 0E94 0000 		call LCDGotoXY
+ 106               	.LM12:
+ 107 0088 CE01      		movw r24,r28
+ 108 008a 0E94 0000 		call LCDString
+ 109 008e 88E8      		ldi r24,lo8(5000)
+ 110 0090 93E1      		ldi r25,hi8(5000)
+ 111               	.L2:
+ 112               	.LBB19:
+ 113               	.LBB18:
+ 114               	.LBB17:
+ 115               	.LBB16:
+ 116               	.LM13:
+ 117 0092 F801      		movw r30,r16
+ 118               	/* #APP */
+ 119               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 120 0094 3197      		1: sbiw r30,1
+ 121 0096 01F4      		brne 1b
+ 122               	 ;  0 "" 2
+ 123               	/* #NOAPP */
+ 124               	.LBE16:
+ 125               	.LBE17:
+ 126               	.LM14:
+ 127 0098 0197      		sbiw r24,1
+ 128               	.LM15:
+ 129 009a 01F4      		brne .L2
+ 130 009c 00C0      		rjmp .L3
+ 131               	.LBE18:
+ 132               	.LBE19:
+ 133               	.LFE7:
+ 135               	.global	adc_value
+ 136               	.global	adc_value
+ 137               		.section .bss
+ 140               	adc_value:
+ 141 0000 0000      		.skip 2,0
+ 142               		.comm line,16,1
+ 167               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 ADC_Interfacing.c
+C:\Users\FAHIMR~1\AppData\Local\Temp/cc9NFCqJ.s:2      *ABS*:0000003f __SREG__
+C:\Users\FAHIMR~1\AppData\Local\Temp/cc9NFCqJ.s:3      *ABS*:0000003e __SP_H__
+C:\Users\FAHIMR~1\AppData\Local\Temp/cc9NFCqJ.s:4      *ABS*:0000003d __SP_L__
+C:\Users\FAHIMR~1\AppData\Local\Temp/cc9NFCqJ.s:5      *ABS*:00000034 __CCP__
+C:\Users\FAHIMR~1\AppData\Local\Temp/cc9NFCqJ.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\FAHIMR~1\AppData\Local\Temp/cc9NFCqJ.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\FAHIMR~1\AppData\Local\Temp/cc9NFCqJ.s:24     .text:00000000 main
+                            *COM*:00000010 line
+C:\Users\FAHIMR~1\AppData\Local\Temp/cc9NFCqJ.s:140    .bss:00000000 adc_value
+
+UNDEFINED SYMBOLS
+LCDInit
+adc_init
+strcpy
+LCDGotoXY
+LCDString
+adc_read
+sprintf
+__do_copy_data
+__do_clear_bss

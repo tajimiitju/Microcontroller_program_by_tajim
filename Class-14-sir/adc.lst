@@ -1,0 +1,73 @@
+   1               		.file	"adc.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	adc_init
+  18               	adc_init:
+  19               	.LFB2:
+  20               	.LM1:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	.LM2:
+  24 0000 3E9A      		sbi 39-32,6
+  25               	.LM3:
+  26 0002 3F98      		cbi 39-32,7
+  27               	.LM4:
+  28 0004 3098      		cbi 38-32,0
+  29               	.LM5:
+  30 0006 319A      		sbi 38-32,1
+  31               	.LM6:
+  32 0008 329A      		sbi 38-32,2
+  33               	.LM7:
+  34 000a 379A      		sbi 38-32,7
+  35               	.LM8:
+  36 000c 3D98      		cbi 39-32,5
+  37               	/* epilogue start */
+  38               	.LM9:
+  39 000e 0895      		ret
+  40               	.LFE2:
+  42               	.global	adc_read
+  44               	adc_read:
+  45               	.LFB3:
+  46               	.LM10:
+  47               	/* prologue: function */
+  48               	/* frame size = 0 */
+  49               	.LM11:
+  50 0010 3898      		cbi 39-32,0
+  51               	.LM12:
+  52 0012 3998      		cbi 39-32,1
+  53               	.LM13:
+  54 0014 3A98      		cbi 39-32,2
+  55               	.LM14:
+  56 0016 3B98      		cbi 39-32,3
+  57               	.LM15:
+  58 0018 369A      		sbi 38-32,6
+  59               	.L4:
+  60               	.LM16:
+  61 001a 3699      		sbic 38-32,6
+  62 001c 00C0      		rjmp .L4
+  63               	.LM17:
+  64 001e 24B1      		in r18,36-32
+  65 0020 35B1      		in r19,(36)+1-32
+  66               	.LM18:
+  67 0022 C901      		movw r24,r18
+  68               	/* epilogue start */
+  69 0024 0895      		ret
+  70               	.LFE3:
+ 104               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 adc.c
+C:\Users\FAHIMR~1\AppData\Local\Temp/ccdmY46O.s:2      *ABS*:0000003f __SREG__
+C:\Users\FAHIMR~1\AppData\Local\Temp/ccdmY46O.s:3      *ABS*:0000003e __SP_H__
+C:\Users\FAHIMR~1\AppData\Local\Temp/ccdmY46O.s:4      *ABS*:0000003d __SP_L__
+C:\Users\FAHIMR~1\AppData\Local\Temp/ccdmY46O.s:5      *ABS*:00000034 __CCP__
+C:\Users\FAHIMR~1\AppData\Local\Temp/ccdmY46O.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\FAHIMR~1\AppData\Local\Temp/ccdmY46O.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\FAHIMR~1\AppData\Local\Temp/ccdmY46O.s:18     .text:00000000 adc_init
+C:\Users\FAHIMR~1\AppData\Local\Temp/ccdmY46O.s:44     .text:00000010 adc_read
+
+NO UNDEFINED SYMBOLS
