@@ -1,0 +1,179 @@
+
+day17.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000f0  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  00000144  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  00000144  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000174  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000030  00000000  00000000  000001b0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000005c5  00000000  00000000  000001e0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000547  00000000  00000000  000007a5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000230  00000000  00000000  00000cec  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000058  00000000  00000000  00000f1c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000002db  00000000  00000000  00000f74  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000049  00000000  00000000  0000124f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000020  00000000  00000000  00001298  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+   8:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+   c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  10:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  14:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  18:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  1c:	0c 94 5e 00 	jmp	0xbc	; 0xbc <__vector_7>
+  20:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  24:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  28:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  2c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  30:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  34:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  38:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  3c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  40:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  44:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  48:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  4c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  50:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_clear_bss>:
+  60:	20 e0       	ldi	r18, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	01 c0       	rjmp	.+2      	; 0x6a <.do_clear_bss_start>
+
+00000068 <.do_clear_bss_loop>:
+  68:	1d 92       	st	X+, r1
+
+0000006a <.do_clear_bss_start>:
+  6a:	a0 36       	cpi	r26, 0x60	; 96
+  6c:	b2 07       	cpc	r27, r18
+  6e:	e1 f7       	brne	.-8      	; 0x68 <.do_clear_bss_loop>
+  70:	0e 94 72 00 	call	0xe4	; 0xe4 <main>
+  74:	0c 94 76 00 	jmp	0xec	; 0xec <_exit>
+
+00000078 <__bad_interrupt>:
+  78:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000007c <Timer_0_Init>:
+ int count = 0;
+
+ void Timer_0_Init(void)
+ {
+	 	// TCCR1 for 16 bit
+	TCCR1B &= ~(1<<CS10); // prescalling 256 - 001
+  7c:	8e b5       	in	r24, 0x2e	; 46
+  7e:	8e 7f       	andi	r24, 0xFE	; 254
+  80:	8e bd       	out	0x2e, r24	; 46
+	TCCR1B &= ~(1<<CS11);
+  82:	8e b5       	in	r24, 0x2e	; 46
+  84:	8d 7f       	andi	r24, 0xFD	; 253
+  86:	8e bd       	out	0x2e, r24	; 46
+	TCCR1B |= (1<<CS12);
+  88:	8e b5       	in	r24, 0x2e	; 46
+  8a:	84 60       	ori	r24, 0x04	; 4
+  8c:	8e bd       	out	0x2e, r24	; 46
+ 
+ // sob gula 0 korle wave form generation normal mode
+	TCCR1B &= ~(1<<WGM10); //timer normal mode
+  8e:	8e b5       	in	r24, 0x2e	; 46
+  90:	8e 7f       	andi	r24, 0xFE	; 254
+  92:	8e bd       	out	0x2e, r24	; 46
+	TCCR1B &= ~(1<<WGM11); //timer normal mode
+  94:	8e b5       	in	r24, 0x2e	; 46
+  96:	8d 7f       	andi	r24, 0xFD	; 253
+  98:	8e bd       	out	0x2e, r24	; 46
+	TCCR1B &= ~(1<<WGM12); //timer normal mode
+  9a:	8e b5       	in	r24, 0x2e	; 46
+  9c:	87 7f       	andi	r24, 0xF7	; 247
+  9e:	8e bd       	out	0x2e, r24	; 46
+	TCCR1B &= ~(1<<WGM13); //timer normal mode
+  a0:	8e b5       	in	r24, 0x2e	; 46
+  a2:	8f 7e       	andi	r24, 0xEF	; 239
+  a4:	8e bd       	out	0x2e, r24	; 46
+	
+	TIMSK |= (1<<OCIE1A); //output compare match enable
+  a6:	89 b7       	in	r24, 0x39	; 57
+  a8:	80 61       	ori	r24, 0x10	; 16
+  aa:	89 bf       	out	0x39, r24	; 57
+	TCNT1 = 0; // clear time counter
+  ac:	1d bc       	out	0x2d, r1	; 45
+  ae:	1c bc       	out	0x2c, r1	; 44
+	OCR1A = 31250;
+  b0:	82 e1       	ldi	r24, 0x12	; 18
+  b2:	9a e7       	ldi	r25, 0x7A	; 122
+  b4:	9b bd       	out	0x2b, r25	; 43
+  b6:	8a bd       	out	0x2a, r24	; 42
+	sei(); // set enable interrupt
+  b8:	78 94       	sei
+  ba:	08 95       	ret
+
+000000bc <__vector_7>:
+ }
+
+ ISR(TIMER1_COMPA_vect)
+ {
+  bc:	1f 92       	push	r1
+  be:	0f 92       	push	r0
+  c0:	0f b6       	in	r0, 0x3f	; 63
+  c2:	0f 92       	push	r0
+  c4:	11 24       	eor	r1, r1
+  c6:	8f 93       	push	r24
+  c8:	9f 93       	push	r25
+		PORTC ^= (1<<0);
+  ca:	95 b3       	in	r25, 0x15	; 21
+  cc:	81 e0       	ldi	r24, 0x01	; 1
+  ce:	89 27       	eor	r24, r25
+  d0:	85 bb       	out	0x15, r24	; 21
+		TCNT1 = 0; // clear time counter
+  d2:	1d bc       	out	0x2d, r1	; 45
+  d4:	1c bc       	out	0x2c, r1	; 44
+ }
+  d6:	9f 91       	pop	r25
+  d8:	8f 91       	pop	r24
+  da:	0f 90       	pop	r0
+  dc:	0f be       	out	0x3f, r0	; 63
+  de:	0f 90       	pop	r0
+  e0:	1f 90       	pop	r1
+  e2:	18 95       	reti
+
+000000e4 <main>:
+
+ int main(void)
+ {
+	Timer_0_Init();
+  e4:	0e 94 3e 00 	call	0x7c	; 0x7c <Timer_0_Init>
+	DDRC |= (1<<0);
+  e8:	a0 9a       	sbi	0x14, 0	; 20
+  ea:	ff cf       	rjmp	.-2      	; 0xea <main+0x6>
+
+000000ec <_exit>:
+  ec:	f8 94       	cli
+
+000000ee <__stop_program>:
+  ee:	ff cf       	rjmp	.-2      	; 0xee <__stop_program>
