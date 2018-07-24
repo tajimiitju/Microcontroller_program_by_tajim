@@ -10,8 +10,7 @@
  4. clear timer counter register value
  5. enable global iterrupt function sei()
  6. calculating value for OC0
- 7. writing ISR function
- 
+ 7. writing ISR function - Interrupt Service Routine
  */ 
 #define F_CPU 8000000UL
 #include <avr/io.h>

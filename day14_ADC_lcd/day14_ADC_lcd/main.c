@@ -11,12 +11,8 @@
 #include "lcd.h"
 #include "adc.h" 
 char line[16];
-//int adc_value = 0;
-
 float adc_value = 0;
 float adc_volt = 0;
-
-
 int main(void)
 {
 	LCDInit(); // declare lcd data port and control port
@@ -25,33 +21,24 @@ int main(void)
     {
 		LCDInit(); //Initialize LCD Display
 		adc_init();//Function call
-		
 		sprintf(line,"ADC Value:");
 		LCDGotoXY(1,1);
 		LCDString(line);
-		
 		sprintf(line,"ADC Volt:");
 		LCDGotoXY(1,2);
 		LCDString(line);
-		
-		
 		while(1)
 		{
 			adc_value = adc_read(); //ADC Read
 			adc_volt = ((adc_value*5)/1024.0);
-			
 			sprintf(line,"%.2f", adc_value);
 			LCDGotoXY(11,1);
 			LCDString(line);
-			
 			sprintf(line,"%.2f", adc_volt);
 			LCDGotoXY(11,2);
-			LCDString(line);
-			
+			LCDString(line);	
 			_delay_ms(500);
-		}
-
-		
+		}		
     }
 }
 
