@@ -1,0 +1,16 @@
+0	1	mikrocAVR.exe -MSF -DBG -pATMEGA32A -DL -SSA -O11111114 -fo16 -N"D:\DVD Data all\AVR Trainer Kit\Example\LED Blinking\Led_blinking.mcpav" -BOOTSZ2048 -BOOTOP0 -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for AVR\defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for AVR\uses\lte64kw\" -SP"D:\DVD Data all\AVR Trainer Kit\Example\LED Blinking\" -SP"D:\Data Write in DVD\TechAVR2 - Trainer Kit\Example\LED Blinking\" -SP"C:\Program Files\Mikroelektronika\mikroC PRO for AVR\Defs\" -SP"C:\Program Files\Mikroelektronika\mikroC PRO for AVR\uses\lte64kw\" -SP"C:\Users\Fahad\Desktop\offc\TechAVR2\Example\LED blinking\" "Led_blinking.c" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "__Lib_CType.mcl" "__Lib_CString.mcl" "__Lib_CStdlib.mcl" "__Lib_CMath.mcl" "__Lib_MemManager.mcl" "__Lib_Conversions.mcl" "__Lib_Sprintf.mcl" "__Lib_Sprinti.mcl" "__Lib_Sprintl.mcl" "__Lib_PrintOut.mcl" "__Lib_Time.mcl" "__Lib_Trigonometry.mcl" "__Lib_Button.mcl" "__Lib_Keypad4x4.mcl" "__Lib_Manchester.mcl" "__Lib_OneWire.mcl" "__Lib_PS2.mcl" "__Lib_Sound.mcl" "__Lib_SoftI2C.mcl" "__Lib_SoftSPI.mcl" "__Lib_SoftUART.mcl" "__Lib_ADC.mcl" "__Lib_EEPROM_eew.mcl" "__Lib_FLASH_rwe.mcl" "__Lib_PWM_0.mcl" "__Lib_PWM1_2_presc.mcl" "__Lib_PWM16bit_12.mcl" "__Lib_SPI_b7654_x2.mcl" "__Lib_TWI.mcl" "__Lib_UART_d01_ursel.mcl" "__Lib_PortExpander.mcl" "__Lib_CANSPI.mcl" "__Lib_CF.mcl" "__Lib_CFFat16.mcl" "__Lib_GlcdFonts.mcl" "__Lib_Glcd.mcl" "__Lib_LcdConsts.mcl" "__Lib_Lcd.mcl" "__Lib_Mmc.mcl" "__Lib_MmcFat16.mcl" "__Lib_MmcFat16Constants.mcl" "__Lib_RS485.mcl" "__Lib_S1D13700.mcl" "__Lib_T6963C.mcl" "__Lib_SPIGlcd.mcl" "__Lib_SPILcd.mcl" "__Lib_SPILcd8.mcl" "__Lib_SPIT6963C.mcl" "__Lib_TouchPanel.mcl" "__Lib_EthEnc28j60.mcl" "__Lib_EthEnc24j600.mcl"	 
+warning: 0	1501	Specified search path does not exist: 'D:\Data Write in DVD\TechAVR2 - Trainer Kit\Example\LED Blinking'	 
+warning: 0	1501	Specified search path does not exist: 'C:\Program Files\Mikroelektronika\mikroC PRO for AVR\Defs'	 
+warning: 0	1501	Specified search path does not exist: 'C:\Program Files\Mikroelektronika\mikroC PRO for AVR\uses\lte64kw'	 
+warning: 0	1501	Specified search path does not exist: 'C:\Users\Fahad\Desktop\offc\TechAVR2\Example\LED blinking'	 
+diagnostics: 0	126	All files Preprocessed in 826 ms	 
+diagnostics: 0	122	Compilation Started	Led_blinking.c
+diagnostics: 36	123	Compiled Successfully	Led_blinking.c
+diagnostics: 0	127	All files Compiled in 94 ms	 
+hint: 0	1144	Used RX (bytes): 14 (44%)   Free RX (bytes): 18 (56%)	Used RX (bytes): 14 (44%)   Free RX (bytes): 18 (56%)
+hint: 0	1144	Static RAM (bytes): 96   Dynamic RAM (bytes): 2048	Static RAM (bytes): 96   Dynamic RAM (bytes): 2048
+hint: 0	1144	Used ROM (bytes): 170 (1%)  Free ROM (bytes): 28502 (99%)	Used ROM (bytes): 170 (1%)  Free ROM (bytes): 28502 (99%)
+diagnostics: 0	125	Project Linked Successfully	Led_blinking.mcpav
+diagnostics: 0	128	Linked in 468 ms	 
+diagnostics: 0	129	Project 'Led_blinking.mcpav' completed: 1529 ms	 
+diagnostics: 0	103	Finished successfully: 16 Nov 2014, 17:58:33	Led_blinking.mcpav

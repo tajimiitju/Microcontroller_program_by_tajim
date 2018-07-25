@@ -1,0 +1,70 @@
+void Tone1() {
+  Sound_Play(659, 250);   // Frequency = 659Hz, duration = 250ms
+}
+
+void Tone2() {
+  Sound_Play(698, 250);   // Frequency = 698Hz, duration = 250ms
+}
+
+void Tone3() {
+  Sound_Play(784, 250);   // Frequency = 784Hz, duration = 250ms
+}
+
+void Melody() {                              // Plays the melody "Yellow house"
+  Tone1(); Tone2(); Tone3(); Tone3();
+  Tone1(); Tone2(); Tone3(); Tone3();
+  Tone1(); Tone2(); Tone3();
+  Tone1(); Tone2(); Tone3(); Tone3();
+  Tone1(); Tone2(); Tone3();
+  Tone3(); Tone3(); Tone2(); Tone2(); Tone1();
+}
+
+void ToneA() {
+  Sound_Play( 880, 50);
+}
+void ToneC() {
+  Sound_Play(1046, 50);
+}
+void ToneE() {
+  Sound_Play(1318, 50);
+}
+
+void Melody2() {                // Plays Melody2
+ unsigned short i;
+  for (i = 9; i > 0; i--) {
+    ToneA();
+    ToneC();
+    ToneE();
+    }
+}
+
+void main() {
+
+  DDRB = 0x00;                   // Configure PORTB as input
+  Sound_Init(&PORTC,3);                  // Initialize sound pin
+
+  Sound_Play(880, 1000);         // Play sound at 880Hz for 1 second
+
+  while (1) {                    // endless loop
+
+    if (PINB7_bit)               // If PORTB.7 is pressed play Tone1
+      Tone1();                   //
+    while (PINB7_bit) ;          // Wait for button to be released
+
+    if (PINB6_bit)               // If PORTB.6 is pressed play Tone2
+      Tone2();                   //
+    while (PINB6_bit) ;          // Wait for button to be released
+
+    if (PINB5_bit)               // If PORTB.5 is pressed play Tone3
+      Tone3();                   //
+    while (PINB5_bit) ;          // Wait for button to be released
+
+    if (PINB4_bit)               // If PORTB.4 is pressed play Melody2
+      Melody2();                 //
+    while (PINB4_bit) ;          // Wait for button to be released
+
+    if (PINB3_bit)               // If PORTB.3 is pressed play Melody
+      Melody();                  //
+    while (PINB3_bit) ;          // Wait for button to be released
+  }
+}

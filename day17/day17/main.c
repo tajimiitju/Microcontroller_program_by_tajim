@@ -34,7 +34,8 @@
 	
 	TIMSK |= (1<<OCIE1A); //output compare match enable
 	TCNT1 = 0; // clear time counter
-	OCR1A = 31250;
+	OCR1A = 31250; 
+	// 256 prescalling e 8000000/256 = 3125 ta bit dile 1 second
 	sei(); // set enable interrupt
  }
 

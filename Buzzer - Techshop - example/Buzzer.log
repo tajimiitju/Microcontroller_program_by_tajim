@@ -1,0 +1,13 @@
+0	1	mikrocAVR.exe -MSF -DBG -pATMEGA32 -DL -SSA -O11111113 -fo16 -N"C:\Users\kanok\Desktop\Code for AVR dev board\TechAVR2\Example\Buzzer\Buzzer.mcpav" -SP"C:\Program Files (x86)\mikroC PRO for AVR\defs\" -SP"C:\Program Files (x86)\mikroC PRO for AVR\uses\lte64kw\" -SP"C:\Users\kanok\Desktop\Code for AVR dev board\TechAVR2\Example\Buzzer\" -SP"C:\Users\kanok\Desktop\Code for AVR dev board\TechAVR2\Buzzer\" "Buzzer.c" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "__Lib_Sound.mcl" "__Lib_LcdConsts.mcl" "__Lib_Lcd.mcl"	 
+warning: 0	1501	Specified search path does not exist: 'C:\Users\kanok\Desktop\Code for AVR dev board\TechAVR2\Buzzer'	 
+diagnostics: 0	126	All files Preprocessed in 15 ms	 
+diagnostics: 0	122	Compilation Started	Buzzer.c
+diagnostics: 252	123	Compiled Successfully	Buzzer.c
+diagnostics: 0	127	All files Compiled in 31 ms	 
+hint: 0	1144	Used RX (bytes): 19 (59%)   Free RX (bytes): 13 (41%)	Used RX (bytes): 19 (59%)   Free RX (bytes): 13 (41%)
+hint: 0	1144	Static RAM (bytes): 351   Dynamic RAM (bytes): 1793	Static RAM (bytes): 351   Dynamic RAM (bytes): 1793
+hint: 0	1144	Used ROM (bytes): 4010 (12%)  Free ROM (bytes): 28758 (88%)	Used ROM (bytes): 4010 (12%)  Free ROM (bytes): 28758 (88%)
+diagnostics: 0	125	Project Linked Successfully	Buzzer.mcpav
+diagnostics: 0	128	Linked in 16 ms	 
+diagnostics: 0	129	Project 'Buzzer.mcpav' completed: 78 ms	 
+diagnostics: 0	103	Finished successfully: 13 Jun 2013, 16:43:34	Buzzer.mcpav

@@ -39,10 +39,10 @@ void Timer_0_Init(void)
 	// non inverting e always high, match hole low
 	
 	TCNT1 = 0; // clear time counter
-	//OCR1A = 31250;
 	ICR1 = 2499; // 50hz 20ms =>Top
 	// pwm frequency = F_CPU/(N*(1+Top)) => Top = 8000000/(64*50) - 1 =2499
 	// N = 64 (prescalling) , pwm frequency = 50 HZ korte chai
+	// time T = 1/f = 1/50 = .02 sec = 20 ms
 	sei(); // set enable interrupt
 }
 
@@ -61,11 +61,9 @@ int main(void)
 	Timer_0_Init(); // initializing timer = 0
 	while (1) 
     {
-		/*
-		sprintf(line, "PWM");	
-		LCDGotoXY(3,1);
-		LCDString(line);
-		*/
+		// 8000000/64 = 125000 because 64 prescalling
+		// 125000 ta pulse dile 1 second
+		// 125000/1000 = 125 ta pulse dile 1 mili second
 		OCR1A = 125; // 1mili sec 125hz , 49% of 255 => (125/255)*100%
 		_delay_ms(1000);
 		OCR1A = 187.5; // 1.5mili sec , 74% of 255
