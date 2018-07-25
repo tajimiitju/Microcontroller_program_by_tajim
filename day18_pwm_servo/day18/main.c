@@ -21,11 +21,6 @@
 char line[16];
 int count = 0;
 
-unsigned int h = 0;
-unsigned int m = 0;
-unsigned int s = 0;
-
-
 void Timer_0_Init(void)
 {
 	// TCCR1 for 16 bit
@@ -41,10 +36,13 @@ void Timer_0_Init(void)
 	
 	TCCR1A &= ~(1<<COM1A0); //output compare mode, fast pwm non-inverting mode
 	TCCR1A |= (1<<COM1A1); //output compare mode, fast pwm non-inverting mode
+	// non inverting e always high, match hole low
 	
 	TCNT1 = 0; // clear time counter
 	//OCR1A = 31250;
-	ICR1 = 2499; // 50hz 20ms 
+	ICR1 = 2499; // 50hz 20ms =>Top
+	// pwm frequency = F_CPU/(N*(1+Top)) => Top = 8000000/(64*50) - 1 =2499
+	// N = 64 (prescalling) , pwm frequency = 50 HZ korte chai
 	sei(); // set enable interrupt
 }
 
@@ -60,7 +58,7 @@ int main(void)
 {
 	DDRD |= (1<<5);
 	//LCDInit();
-	Timer_0_Init(); // initilizing timer = 0
+	Timer_0_Init(); // initializing timer = 0
 	while (1) 
     {
 		/*
@@ -68,11 +66,11 @@ int main(void)
 		LCDGotoXY(3,1);
 		LCDString(line);
 		*/
-		OCR1A = 125; // 1mili sec 125hz
+		OCR1A = 125; // 1mili sec 125hz , 49% of 255 => (125/255)*100%
 		_delay_ms(1000);
-		OCR1A = 187.5; // 1.5mili sec 
+		OCR1A = 187.5; // 1.5mili sec , 74% of 255
 		_delay_ms(1000);
-		OCR1A = 250; // 2mili sec 
+		OCR1A = 250; // 2mili sec , 98% of 255
 		_delay_ms(1000);
 	}
 	return 0;

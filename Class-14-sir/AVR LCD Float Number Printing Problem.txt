@@ -1,7 +1,25 @@
-AVR/GNU Linker_______
-Libraries_______________
+project -> name -> toolchain
+or,
+alt+f7 -> toolchain 
+
+after then,
+
+AVR/GNU Linker ->
+1. general -> general map + use vprintf library -> ticked  
+
+2. Libraries -> 
 libprintf_flt.a
 libm.a
-Miscellaneous__________
+
+3. Miscellaneous ->
 -Wl,-u,vfprintf -lprintf_flt -lm 
 
+source:
+https://startingelectronics.org/articles/atmel-AVR-8-bit/print-float-atmel-studio-7/
+
+
+..
+..............
+winavr......
+PRINTF_LIB
+make file e float er ta uncomment korte hobe
