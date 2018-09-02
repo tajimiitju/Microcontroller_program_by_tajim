@@ -3,29 +3,29 @@ day20_USART_FTDI.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000000ca  00000000  00000000  00000074  2**1
+  0 .text         000000dc  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000010  00800060  000000ca  0000013e  2**0
+  1 .data         00000010  00800060  000000dc  00000150  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .comment      00000030  00000000  00000000  0000014e  2**0
+  2 .comment      00000030  00000000  00000000  00000160  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000180  2**2
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000190  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 00000058  00000000  00000000  000001bc  2**0
+  4 .debug_aranges 00000058  00000000  00000000  000001cc  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   000006af  00000000  00000000  00000214  2**0
+  5 .debug_info   00000735  00000000  00000000  00000224  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 000005f3  00000000  00000000  000008c3  2**0
+  6 .debug_abbrev 00000671  00000000  00000000  00000959  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   0000028b  00000000  00000000  00000eb6  2**0
+  7 .debug_line   00000360  00000000  00000000  00000fca  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000084  00000000  00000000  00001144  2**2
+  8 .debug_frame  00000084  00000000  00000000  0000132c  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    0000032b  00000000  00000000  000011c8  2**0
+  9 .debug_str    000003bb  00000000  00000000  000013b0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00000064  00000000  00000000  000014f3  2**0
+ 10 .debug_loc    00000064  00000000  00000000  0000176b  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000038  00000000  00000000  00001557  2**0
+ 11 .debug_ranges 00000038  00000000  00000000  000017cf  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -65,7 +65,7 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	ea ec       	ldi	r30, 0xCA	; 202
+  66:	ec ed       	ldi	r30, 0xDC	; 220
   68:	f0 e0       	ldi	r31, 0x00	; 0
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
@@ -74,83 +74,98 @@ Disassembly of section .text:
   72:	b1 07       	cpc	r27, r17
   74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
   76:	0e 94 41 00 	call	0x82	; 0x82 <main>
-  7a:	0c 94 63 00 	jmp	0xc6	; 0xc6 <_exit>
+  7a:	0c 94 6c 00 	jmp	0xd8	; 0xd8 <_exit>
 
 0000007e <__bad_interrupt>:
   7e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
 00000082 <main>:
-#include <util/delay.h>
 #include "USART.h"
 #include <avr/interrupt.h>
+
 int main(void)
 {
 	USART_Init();
-  82:	0e 94 48 00 	call	0x90	; 0x90 <USART_Init>
+  82:	0e 94 51 00 	call	0xa2	; 0xa2 <USART_Init>
 	//USART_Transmit_Byte('A');
 	while (1)
 	{
 		USART_Transmit_String("Hello World!\r\n"); // \r for carriage return
   86:	80 e6       	ldi	r24, 0x60	; 96
   88:	90 e0       	ldi	r25, 0x00	; 0
-  8a:	0e 94 54 00 	call	0xa8	; 0xa8 <USART_Transmit_String>
-  8e:	fb cf       	rjmp	.-10     	; 0x86 <main+0x4>
+  8a:	0e 94 5d 00 	call	0xba	; 0xba <USART_Transmit_String>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
 
-00000090 <USART_Init>:
+	__builtin_avr_delay_cycles(__ticks_dc);
+  8e:	2f ef       	ldi	r18, 0xFF	; 255
+  90:	84 e3       	ldi	r24, 0x34	; 52
+  92:	9c e0       	ldi	r25, 0x0C	; 12
+  94:	21 50       	subi	r18, 0x01	; 1
+  96:	80 40       	sbci	r24, 0x00	; 0
+  98:	90 40       	sbci	r25, 0x00	; 0
+  9a:	e1 f7       	brne	.-8      	; 0x94 <main+0x12>
+  9c:	00 c0       	rjmp	.+0      	; 0x9e <main+0x1c>
+  9e:	00 00       	nop
+  a0:	f2 cf       	rjmp	.-28     	; 0x86 <main+0x4>
+
+000000a2 <USART_Init>:
 {
 	/* Wait for data to be received */
 	while ( !(UCSRA & (1<<RXC)) );
 	/* Get and return received data from buffer */
 	return UDR;
 }
-  90:	10 bc       	out	0x20, r1	; 32
-  92:	83 e3       	ldi	r24, 0x33	; 51
-  94:	89 b9       	out	0x09, r24	; 9
-  96:	88 e1       	ldi	r24, 0x18	; 24
-  98:	8a b9       	out	0x0a, r24	; 10
-  9a:	8e e8       	ldi	r24, 0x8E	; 142
-  9c:	80 bd       	out	0x20, r24	; 32
-  9e:	08 95       	ret
+  a2:	10 bc       	out	0x20, r1	; 32
+  a4:	83 e3       	ldi	r24, 0x33	; 51
+  a6:	89 b9       	out	0x09, r24	; 9
+  a8:	88 e1       	ldi	r24, 0x18	; 24
+  aa:	8a b9       	out	0x0a, r24	; 10
+  ac:	8e e8       	ldi	r24, 0x8E	; 142
+  ae:	80 bd       	out	0x20, r24	; 32
+  b0:	08 95       	ret
 
-000000a0 <USART_Transmit_Byte>:
-  a0:	5d 9b       	sbis	0x0b, 5	; 11
-  a2:	fe cf       	rjmp	.-4      	; 0xa0 <USART_Transmit_Byte>
-  a4:	8c b9       	out	0x0c, r24	; 12
-  a6:	08 95       	ret
+000000b2 <USART_Transmit_Byte>:
+  b2:	5d 9b       	sbis	0x0b, 5	; 11
+  b4:	fe cf       	rjmp	.-4      	; 0xb2 <USART_Transmit_Byte>
+  b6:	8c b9       	out	0x0c, r24	; 12
+  b8:	08 95       	ret
 
-000000a8 <USART_Transmit_String>:
+000000ba <USART_Transmit_String>:
 
 void USART_Transmit_String(char *string)
 {
-  a8:	cf 93       	push	r28
-  aa:	df 93       	push	r29
-  ac:	ec 01       	movw	r28, r24
+  ba:	cf 93       	push	r28
+  bc:	df 93       	push	r29
+  be:	ec 01       	movw	r28, r24
 	while(*string)
-  ae:	88 81       	ld	r24, Y
-  b0:	88 23       	and	r24, r24
-  b2:	31 f0       	breq	.+12     	; 0xc0 <USART_Transmit_String+0x18>
-  b4:	21 96       	adiw	r28, 0x01	; 1
+  c0:	88 81       	ld	r24, Y
+  c2:	88 23       	and	r24, r24
+  c4:	31 f0       	breq	.+12     	; 0xd2 <USART_Transmit_String+0x18>
+  c6:	21 96       	adiw	r28, 0x01	; 1
 	{
 		USART_Transmit_Byte(*string++);
-  b6:	0e 94 50 00 	call	0xa0	; 0xa0 <USART_Transmit_Byte>
+  c8:	0e 94 59 00 	call	0xb2	; 0xb2 <USART_Transmit_Byte>
 	return UDR;
 }
 
 void USART_Transmit_String(char *string)
 {
 	while(*string)
-  ba:	89 91       	ld	r24, Y+
-  bc:	81 11       	cpse	r24, r1
-  be:	fb cf       	rjmp	.-10     	; 0xb6 <USART_Transmit_String+0xe>
+  cc:	89 91       	ld	r24, Y+
+  ce:	81 11       	cpse	r24, r1
+  d0:	fb cf       	rjmp	.-10     	; 0xc8 <USART_Transmit_String+0xe>
 	{
 		USART_Transmit_Byte(*string++);
 	}
-  c0:	df 91       	pop	r29
-  c2:	cf 91       	pop	r28
-  c4:	08 95       	ret
+  d2:	df 91       	pop	r29
+  d4:	cf 91       	pop	r28
+  d6:	08 95       	ret
 
-000000c6 <_exit>:
-  c6:	f8 94       	cli
+000000d8 <_exit>:
+  d8:	f8 94       	cli
 
-000000c8 <__stop_program>:
-  c8:	ff cf       	rjmp	.-2      	; 0xc8 <__stop_program>
+000000da <__stop_program>:
+  da:	ff cf       	rjmp	.-2      	; 0xda <__stop_program>

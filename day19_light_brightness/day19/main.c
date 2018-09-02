@@ -20,12 +20,8 @@
 #include <util/delay.h>
 //#include "lcd.h"
 #include <avr/interrupt.h>
-char line[16];
-int count = 0;
 
-unsigned int h = 0;
-unsigned int m = 0;
-unsigned int s = 0;
+int count = 0;
 
 
 void Timer_0_Init(void)
@@ -52,18 +48,11 @@ void Timer_0_Init(void)
 	sei(); // set enable interrupt
 }
 
-/*
-ISR(TIMER1_COMPA_vect)
-{
-	
-	TCNT1 = 0; // clear time counter
-}
-*/
+
 int i=0;
 int main(void)
 {
 	DDRD |= (1<<5);
-	//LCDInit();
 	Timer_0_Init(); // initilizing timer = 0
 	while (1) 
     {
